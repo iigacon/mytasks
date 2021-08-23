@@ -1,9 +1,5 @@
 import { AppProps } from 'next/app'
 import { OptionsObject, SnackbarKey, SnackbarMessage } from 'notistack'
-// import { ButtonProps } from '@material-ui/core'
-import { AiOutlineDashboard } from 'react-icons/ai'
-import { EnumUserModelRole } from 'services'
-import { ReactElement } from 'react'
 import { ButtonProps } from 'antd/lib/button/button'
 
 export interface PageProps extends AppProps {

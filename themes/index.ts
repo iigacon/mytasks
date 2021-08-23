@@ -1,4 +1,4 @@
-import { createMuiTheme, Theme as MuiTheme } from '@material-ui/core/styles'
+import { createTheme, Theme as MuiTheme } from '@material-ui/core/styles'
 
 export interface ITheme extends MuiTheme {
   overrides: {}
@@ -13,7 +13,7 @@ export interface ITheme extends MuiTheme {
   }
 }
 
-const baseTheme = createMuiTheme({
+const baseTheme = createTheme({
   props: {
     MuiPaper: {
       elevation: 1,
@@ -97,7 +97,7 @@ const baseTheme = createMuiTheme({
       main: '#17c191', //'#619f30',
     },
     secondary: {
-      main: '#3783e7', //indigo[600],
+      main: '#17c191', //indigo[600],
     },
   },
   typography: {
