@@ -22,7 +22,7 @@ const Home: NextPage = () => {
                 <title>Đăng nhập</title>
             </Head>
             <div className={styles.backdropHead}>
-                <Image
+                <img
                     className={styles.circle}
                     src={'https://online.f88.vn/static/media/bgCircle.9678d7a7.svg'}/>
             </div>
@@ -42,7 +42,7 @@ const Home: NextPage = () => {
                   // justifyContent="space-between"
             >
                 <div className={styles.containerCharacter}>
-                    <Image className={styles.character} src={'https://online.f88.vn/static/media/character.1f20143a.png'}/>
+                    <img className={styles.character} src={'https://online.f88.vn/static/media/character.1f20143a.png'}/>
                 </div>
                 <div className={styles.card}>
                     <div>
@@ -53,7 +53,7 @@ const Home: NextPage = () => {
                               alignItems="center">
                             <div className={styles.option_1}>
                                 <div className={styles.checked}>
-                                    <Image src="https://online.f88.vn/static/media/iconV.f510f56a.svg"
+                                    <img src="https://online.f88.vn/static/media/iconV.f510f56a.svg"
                                          alt=""/>
                                 </div>
                                 <p className={styles.textMoney}>5.000.000đ</p><span
@@ -61,7 +61,7 @@ const Home: NextPage = () => {
                             </div>
                             <div className={styles.option_1}>
                                 <div className={styles.check}>
-                                    <Image src="https://online.f88.vn/static/media/iconCommingSoon.8dc57c78.svg"
+                                    <img src="https://online.f88.vn/static/media/iconCommingSoon.8dc57c78.svg"
                                          alt=""/>
                                 </div>
                                 <p className={styles.textMoney}>3.000.000đ</p><span
@@ -94,7 +94,7 @@ const Home: NextPage = () => {
                     </div>
                 </div>
             </Grid>
-            <Image className={styles.wallCenter} src="https://online.f88.vn/static/media/artwork1.67f0e83d.png" alt=""
+            <img className={styles.wallCenter} src="https://online.f88.vn/static/media/artwork1.67f0e83d.png" alt=""
                  data-rum="image-artwork"/>
 
 
