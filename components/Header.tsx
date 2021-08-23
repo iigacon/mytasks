@@ -8,11 +8,11 @@ export default function Header() {
 
     const [session] = useSession();
 
-    const handleSignin = (e) => {
+    const handleSignin = (e: { preventDefault: () => void; }) => {
         e.preventDefault()
         signIn()
     }
-    const handleSignout = (e) => {
+    const handleSignout = (e: { preventDefault: () => void; }) => {
         e.preventDefault()
         signOut()
     }
@@ -27,8 +27,8 @@ export default function Header() {
                     justifyContent="center"
                     alignItems="center"
                 >
-                <Avatar src={session.user.image} alt="" className={styles.avatar} />
-                <p style={{ paddingLeft: '16px' }}> Welcome, {session.user.name ?? session.user.email}</p>
+                <Avatar src={session?.user?.image+''} alt="" className={styles.avatar} />
+                <p style={{ paddingLeft: '16px' }}> Welcome, {session?.user?.name ?? session?.user?.email}</p>
                 </Grid>
             </Row>}
         </div>
