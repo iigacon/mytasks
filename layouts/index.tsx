@@ -23,7 +23,7 @@ const Index: React.FC<Props> = ({ children }) => {
         <Layout
             style={{
                 // marginLeft: !screens.md ? 0 : collapsed ? 80 : 200,
-                transition: 'all 0.2s',
+                // transition: 'all 0.2s',
             }}
         >
                 <div className='site-layout-background'>{children}</div>

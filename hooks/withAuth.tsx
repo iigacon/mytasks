@@ -1,4 +1,4 @@
-import { userInfoState } from '../atoms'
+import {token, userInfoState} from '../atoms'
 import Loading from '../components/Loading'
 import jwt from 'jsonwebtoken'
 import { useRouter } from 'next/router'
@@ -6,6 +6,7 @@ import { parseCookies } from 'nookies'
 import React, { useEffect } from 'react'
 import { useRecoilState } from 'recoil'
 import axios, { AxiosRequestConfig } from 'axios'
+import {Api} from "../services";
 
 export const withAuth = (WrappedComponent: any) => {
   return (props: any) => {
@@ -16,70 +17,28 @@ export const withAuth = (WrappedComponent: any) => {
 
     const pathNotLogin =[
       '/',
+      '/otp',
       '/login',
+      '/ekyc',
     ]
 
     useEffect(() => {
-      console.log('access_token', window.location.href)
-      console.log('access_token', router.pathname)
-      if (!access_token && !pathNotLogin.includes(router.pathname) ) window.location.href = '/login'
+      console.log('access_token', access_token)
+      if (!access_token  && !pathNotLogin.includes(router.pathname) ) window.location.href = '/'
       else {
         const userTokenData = jwt.decode(access_token, {
           json: true,
         })
+        console.log(userTokenData)
         if (userTokenData) {
-          // const currentTime = new Date().getTime() / 1000
-          // if (currentTime > userTokenData?.exp)
-          //   window.location.href = 'https://sso.tima.vn'
-          //
-          // const notAllowRoles = [EnumUserModelRole.Guest]
-          //
-          // if (notAllowRoles.includes(userTokenData?.role)) {
-          //   alert(
-          //     'Tài khoản chưa được cấp quyền! Vui lòng liên hệ Hotline: 0969 542 333 được được cấp quyền!',
-          //   )
-          //   window.location.href = 'https://sso.tima.vn'
-          // } else {
-          //   setUser(userTokenData as UserModel)
-          //
-          //   if (
-          //     userTokenData?.role === EnumUserModelRole.User &&
-          //     router.pathname !== '/user/checkin' &&
-          //     router.pathname !== '/user/[id]'
-          //   ) {
-          //     router.push('/user/checkin')
-          //   }
-          //
-          //   const axiosConfig: AxiosRequestConfig = {
-          //     baseURL:
-          //       process.env.NEXT_PUBLIC_API_URL ||
-          //       'http://128.199.75.164:4000/',
-          //     timeout: 60000, // 1 phút
-          //   }
-          //
-          //   if (access_token) {
-          //     axiosConfig.headers = {
-          //       Authorization: `Bearer ${access_token}`,
-          //       'Access-Control-Allow-Origin': '*',
-          //     }
-          //   }
-          //   axios.interceptors.response.use(
-          //     response => response,
-          //     error => {
-          //       // alertError(error)
-          //       console.log("Error", error);
-          //
-          //       return Promise.reject(error)
-          //     },
-          //   )
-          //
-          //   serviceOptions.axios = axios.create(axiosConfig)
-          // }
+          const currentTime = new Date().getTime() / 1000
+          if (currentTime > userTokenData?.exp)
+            window.location.href = '/'
+
+          Api.getInstance().changeAuth(access_token)
         }
       }
     }, [router.pathname])
-
-    // if (!user?.id) return <Loading absoluted />
 
     return <WrappedComponent {...props} />
   }

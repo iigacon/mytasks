@@ -11,3 +11,9 @@ export const loadingState = atom({
   key: 'loadingState',
   default: false,
 })
+
+
+export const token = atom({
+  key: 'token',
+  default: '',
+})

@@ -94,7 +94,7 @@ const baseTheme = createTheme({
   },
   palette: {
     primary: {
-      main: '#17c191', //'#619f30',
+      main: '#fff', //'#619f30',
     },
     secondary: {
       main: '#17c191', //indigo[600],

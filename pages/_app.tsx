@@ -20,6 +20,8 @@ import { Provider } from 'next-auth/client'
 if (viVN.DatePicker) {
   viVN.DatePicker.lang.locale = 'vi'
 }
+import 'tailwindcss/tailwind.css'
+import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
@@ -63,9 +65,9 @@ function MyApp({ Component, pageProps }: AppProps) {
                     dateAdapter={DateFnsUtils}
                     locale={viLocale}
                 >
-                    <Provider session={pageProps.session}>
+                    <Layout>
                         <Component {...pageProps} />
-                    </Provider>
+                    </Layout>
                 </LocalizationProvider>
               </ConfigProvider>
             </SnackbarProvider>

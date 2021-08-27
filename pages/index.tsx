@@ -1,20 +1,47 @@
 import type {NextPage} from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import Header from '../components/Header'
 import {useSession} from 'next-auth/client'
-import React, {useEffect} from "react";
-import {Button, Row} from "antd";
+import React, {useEffect, useState} from "react";
+import {Button} from "antd";
 import {Grid, TextField} from "@material-ui/core";
+import {Api, Status} from "../services";
+import {useRouter} from "next/router";
+import Notiflix from "notiflix";
+
 
 const Home: NextPage = () => {
-    const [session, loading] = useSession();
+    const router = useRouter()
 
+    const [session, loading] = useSession();
+    const [phone, setPhone] = useState('');
+
+    const onChangePhone = (event: { target: { name: any; value: any } })=>{
+        const { target: { name, value } } = event;
+        setPhone(value)
+    }
 
     useEffect(() => {
         console.log(session)
     }, [])
+
+
+    const submit = async ()=>{
+        // Notiflix.Loading.init({ customSvgUrl:'https://erp.tima.vn/_next/image?url=%2Fimages%2Flogo.svg&w=64&q=75', svgSize:'80px', });
+        Notiflix.Loading.standard('Đang tải...');
+        const response = await Api.getInstance().getOTP({phone})
+        Notiflix.Loading.remove()
+        if(response?.kind===Status.ok){
+            await router.push({
+                pathname: '/otp',
+                query: { phone: phone },
+            })
+        }else{
+            console.log('error')
+            Notiflix.Confirm.show( 'Thông báo', 'Có lỗi xảy ra. Vui lòng thử lại!', 'Đồng ý' );
+        }
+    }
+
 
     return (
         <div className={styles.container}>
@@ -33,14 +60,7 @@ const Home: NextPage = () => {
                     vay có tài sản đảm bảo</p>
             </div>
             </div>
-            <Grid
-                className={styles.gridContent}
-                container
-                  direction="row"
-                justifyContent="center"
-                alignItems="center"
-                  // justifyContent="space-between"
-            >
+
                 <div className={styles.containerCharacter}>
                     <img className={styles.character} src={'https://online.f88.vn/static/media/character.1f20143a.png'}/>
                 </div>
@@ -71,7 +91,9 @@ const Home: NextPage = () => {
                         </Grid>
                         <div className={styles.containerInput}>
                             <TextField
+                                onChange={onChangePhone}
                                 className={styles.inputPhone}
+                                inputProps={{ inputMode: 'numeric' }}
                                 // margin={'dense'}
                                 id="phone" label="Số điện thoại" variant="outlined"/>
                         </div>
@@ -82,6 +104,7 @@ const Home: NextPage = () => {
                         {/*    className={styles.buttonRegister}*/}
                         {/*    variant="contained"><p className={styles.textRegister}>Vay ngay</p></Button>*/}
                         <Button
+                            onClick={submit}
                             className={styles.buttonRegister}
                         ><p className={styles.textRegister}>Vay ngay</p></Button>
                     </div>
@@ -93,7 +116,12 @@ const Home: NextPage = () => {
                         khoản vay là 6 tháng. Lãi suất trong hạn tính theo năm tối đa là 13.2%/ năm.
                     </div>
                 </div>
-            </Grid>
+
+            <div className={styles.formRegister}>
+                {/*{*/}
+                {/*    formRegister()*/}
+                {/*}*/}
+            </div>
             <img className={styles.wallCenter} src="https://online.f88.vn/static/media/artwork1.67f0e83d.png" alt=""
                  data-rum="image-artwork"/>
 
